@@ -1,0 +1,17 @@
+{
+  "name": "backend_template",
+  "version": "1.0.0",
+  "description": "This is a repo for the backend template for using in production",
+  "license": "ISC",
+  "author": "Tejas Santosh Nalawade",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}
