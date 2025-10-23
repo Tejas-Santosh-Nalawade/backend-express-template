@@ -36,16 +36,15 @@ const userRegistrationValidator = () => {
 const userLoginValidator = () => {
   return [
     body("email")
-      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Email is required.")
       .isEmail()
       .withMessage("Please provide a valid email address."),
-    // body("username")
-    //   .optional()
-    //   .isLowercase()
-    //   .withMessage("Username must be lowercase."),
     body("password")
+      .trim()
       .notEmpty()
-      .optional()
+      .withMessage("Password is required.")
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters long."),
   ];

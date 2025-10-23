@@ -8,7 +8,10 @@ import { userRegistrationValidator } from "../validators/index.js";
 import { userLoginValidator } from "../validators/index.js";
 
 import { loginUser } from "../controllers/auth.controllers.js";
+import { logoutUser } from "../controllers/auth.controllers.js";
 
+
+import {verifyJWT} from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -30,6 +33,9 @@ router.route('/register').post(userRegistrationValidator(), validate, registerUs
 
 router.route('/login').post(userLoginValidator(), validate, loginUser);
 
+// Route: POST /api/v1/auth/logout
 
+// Protected / Secure Route
+router.route('/logout').post(verifyJWT, logoutUser);
 
 export default router;
