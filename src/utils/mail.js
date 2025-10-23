@@ -1,22 +1,21 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
-import Mail from "nodemailer/lib/mailer";
 
-const sendEmail = async (options)=>{
-    const mailGenrator = new Mailgen({
+const sendEmail = async (options) => {
+    const mailGenerator = new Mailgen({
         theme: "default",
         product: {
             name: "Task Manager App",
             link: "https://taskmanagerapp.com",
         },
     })
-    const emailTextual = mailGenrator.generatePlaintext(options.mailgencontent);
-    
-    const emailHTML = mailGenrator.generateHtml(options.mailgencontent);
+    const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
+
+    const emailHTML = mailGenerator.generate(options.mailgenContent);
 
     const transporter = nodemailer.createTransport({
-        host: process.env.MAILTRAP_SMTP_HOST,
-        port: process.env.MAILTRAP_SMTP_PORT,
+        host: process.env.MAILTRAP_SMTP_HOST || "sandbox.smtp.mailtrap.io",
+        port: parseInt(process.env.MAILTRAP_SMTP_PORT) || 2525,
         auth: {
             user: process.env.MAILTRAP_SMTP_USERNAME,
             pass: process.env.MAILTRAP_SMTP_PASSWORD,

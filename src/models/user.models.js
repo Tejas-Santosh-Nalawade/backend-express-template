@@ -98,7 +98,7 @@ userSchema.methods.generateRefreshToken = function () {
 
 // Without Data
 
-userSchema.methods.generateTemporaryToken = function () {
+userSchema.methods.generateTemporaryTokens = function () {
     const unHashedToken = crypto.randomBytes(32).toString("hex");
 
     // Hash the token before saving to the database
