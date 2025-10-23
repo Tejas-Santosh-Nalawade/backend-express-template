@@ -76,4 +76,59 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+   const { email, password , username } = req.body;
+   // user can login with email or username
+   if(!email){
+    throw new ApiError(400, "Email is required for login");
+   }
+
+  const user = await  User.findOne({email});
+
+  if(!user){
+    throw new ApiError(401, "Invalid email or password");
+  } 
+
+  const isPasswordValid = await user.isPasswordCorrect(password);
+
+
+  if(!isPasswordValid){
+    throw new ApiError(401, "Invalid Credentials");
+  }
+
+
+  const {accessToken, refreshToken} = await generateAccessTokenAndRefreshToken(user._id);
+
+  // Logged in user data filtering
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshTokens -emailVerificationToken -emailVerificationTokenExpiry"
+  );
+
+
+  // Set tokens in HttpOnly cookies
+
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true,
+
+  };
+
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200,
+        { user: loggedInUser, accessToken, refreshToken },
+        "User logged in successfully"
+      )
+    );
+});
+
+
+
+
+
+export { registerUser , loginUser };

@@ -1,3 +1,5 @@
+// Storing various constants and enums used across the application
+
 export  const UserRolesEnum = {
     ADMIN: 'admin',
     PROJECT_ADMIN:'project_admin',

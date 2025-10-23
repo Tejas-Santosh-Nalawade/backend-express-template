@@ -1,3 +1,5 @@
+// Used to handle API Errors throughout the application
+
 class ApiError extends Error {
     constructor(statusCode,
         message="Something went wrong",

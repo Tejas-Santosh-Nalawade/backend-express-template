@@ -1,3 +1,5 @@
+// mail utility using Mailgen and Nodemailer for sending templated emails
+
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
 

@@ -1,3 +1,5 @@
+// Used to structure API Responses consistently throughout the application
+
 class ApiResponse {
     constructor(statusCode, data, message="Success") {
         this.statusCode = statusCode;
